@@ -1,0 +1,48 @@
+/* Нижняя панель вкладок — как в ЛР1, только пунктов 4 */
+.tabbar {
+  flex-shrink: 0;
+  display: flex;
+  width: 430px;
+  height: 72px;
+  background: var(--green);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.tab .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.tab:hover:not(:disabled) {
+  background: var(--orange-dark);
+}
+
+.tab--active,
+.tab--active:hover:not(:disabled) {
+  background: var(--orange);
+}
+
+/* Недоступные пункты: бледные и без реакции на наведение */
+.tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
