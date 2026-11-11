@@ -1,32 +1,51 @@
-# React + TypeScript + Vite
+# Урожайность сада яблонь — фронтенд
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Веб-приложение для гостя: просмотр месяцев года с нормами температуры и осадков для сада яблонь.
+React + TypeScript + Vite, компоненты React-Bootstrap. Данные берутся из mock-коллекции
+`src/modules/mock.ts`, бэкенд не нужен.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Страницы
+
+### Плитка — `/`
+
+Список месяцев карточками в две колонки.
+
+| Элемент | Что делает |
+|---|---|
+| Слайдер «Температура от» | выбор нижней границы нормы температуры, от −10 до +25 °C |
+| Кнопка «Показать» | применяет фильтр: остаются месяцы с температурой не ниже выбранной |
+| Кнопка «Сбросить» | возвращает слайдер на −10 °C и показывает все месяцы |
+| Карточка месяца | фото, название, норма температуры, норма осадков, число лайков; нажатие открывает месяц в ленте |
+
+Если ни один месяц не подходит, вместо карточек выводится «Месяцев с такой температурой нет».
+
+### Лента — `/feed`, `/feed/:id`
+
+Один месяц на весь экран. Без id открывается первый месяц текущего списка плитки.
+
+| Элемент | Что делает |
+|---|---|
+| Вертикальное видео | проигрывается автоматически, без звука, по кругу |
+| Название и описание | описание показано в две строки |
+| Кнопка «Ещё» / «Свернуть» | раскрывает и сворачивает описание |
+| Иконки справа | норма температуры, норма осадков, число лайков (только просмотр) |
+| Кнопка со стрелкой | следующий месяц в порядке плитки, после последнего — снова первый |
+
+### Нижняя панель
+
+| Пункт | Состояние |
+|---|---|
+| Лента | открывает ленту |
+| Добавить | недоступен — добавление месяца только после входа |
+| Плитка | открывает плитку |
+| Вход | недоступен — аутентификация появится при подключении к веб-сервису |
+
+## Фото и видео по умолчанию
+
+Если в месяце пустое поле `image_url` или `video_url`, показываются `public/DefaultImage.jpg`
+и `public/DefaultVideo.mp4`. Они же подставляются, если файл по ссылке не загрузился.
